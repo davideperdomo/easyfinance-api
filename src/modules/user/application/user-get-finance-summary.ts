@@ -2,12 +2,12 @@ import { ExpenseService } from '../../expense/domain/expense.service';
 import { IncomeService } from '../../income/domain/income.service';
 import { UserId } from '../domain/user';
 import { UserRepository } from '../domain/user.repository';
+import { UserService } from '../domain/user.service';
 
 export class UserGetFinanceSummary {
   constructor(
     private userRepository: UserRepository,
-    private incomeService: IncomeService,
-    private expenseService: ExpenseService
+    private userService: UserService
   ) {}
 
   async run(plainUserId: string): Promise<UserFinanceSummary | null> {
@@ -16,14 +16,15 @@ export class UserGetFinanceSummary {
     if (!user) {
       return null;
     }
-    const totalIncome = await this.incomeService.calculateTotalUserIncome(userId.value);
-    const totalExpense = await this.expenseService.calculateTotalUserExpense(userId.value);
-
+    const totalIncome = await this.userService.calculateTotalUserIncome(userId);
+    const totalExpense = await this.userService.calculateTotalUserExpense(userId);
+    const balance = await this.userService.calculateBalanceByFrequency(userId.value);
+    
     return {
       userId: user.id.value,
       totalIncome,
       totalExpense,
-      balance: totalIncome - totalExpense
+      balance
     };
   }
 }

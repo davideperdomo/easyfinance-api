@@ -8,17 +8,19 @@ import { ExpenseService } from '../../modules/expense/domain/expense.service';
 import { FirestoreIncomeRepository } from '../../modules/income/infrastructure/firestoreIncome.repository';
 import { FirestoreExpenseRepository } from '../../modules/expense/infrastructure/firestoreExpense.repository';
 import { UserGetFinanceSummary } from '../../modules/user/application/user-get-finance-summary';
+import { UserService } from '../../modules/user/domain/user.service';
 
 const router = Router();
 
 const userRepository = new FirestoreUserRepository();
 const incomeService = new IncomeService(new FirestoreIncomeRepository());
 const expenseService = new ExpenseService(new FirestoreExpenseRepository());
+const userService = new UserService(incomeService, expenseService);
 
 const userController = new UserController(
   new UserCreator(userRepository),
   new UserGetByAuthUserId(userRepository),
-  new UserGetFinanceSummary(userRepository, incomeService, expenseService)
+  new UserGetFinanceSummary(userRepository, userService)
 );
 
 router.post('/api/users', (req, res) => userController.createUser(req, res));

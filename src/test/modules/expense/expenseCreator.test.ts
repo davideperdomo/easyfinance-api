@@ -5,11 +5,12 @@ import { Expense, ExpensePlainData } from '../../../modules/expense/domain/expen
 describe('ExpenseCreator', () => {
     let expenseRepository: ExpenseRepository;
     let expenseCreator: ExpenseCreator;
-
     beforeEach(() => {
         expenseRepository = {
             save: jest.fn(),
             findById: jest.fn(),
+            findByUserId: jest.fn(),
+            delete: jest.fn(),
         };
         expenseCreator = new ExpenseCreator(expenseRepository);
     });
@@ -19,11 +20,10 @@ describe('ExpenseCreator', () => {
             amount: 500,
             frequency: 'weekly',
             userId: '1',
+            name: 'Grocery',
             category: 'food',
         };
-
         const expense = await expenseCreator.run(expenseData);
-
         expect(expenseRepository.save).toHaveBeenCalledWith(expense);
         expect(expense).toBeInstanceOf(Expense);
     });

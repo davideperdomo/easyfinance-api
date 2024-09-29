@@ -10,6 +10,7 @@ describe('UserCreator', () => {
         userRepository = {
             save: jest.fn(),
             findById: jest.fn(),
+            findByAuthUid: jest.fn(),
         };
         userCreator = new UserCreator(userRepository);
     });
@@ -19,7 +20,7 @@ describe('UserCreator', () => {
             id: '1',
             name: 'John Doe',
             email: 'john@example.com',
-            password: 'password123',
+            authUid: 'auth0|1234567890',
         };
 
         const user = await userCreator.run(userData);

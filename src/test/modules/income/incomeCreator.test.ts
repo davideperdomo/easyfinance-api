@@ -5,11 +5,13 @@ import { Income, IncomePlainData } from '../../../modules/income/domain/income';
 describe('IncomeCreator', () => {
     let incomeRepository: IncomeRepository;
     let incomeCreator: IncomeCreator;
-
     beforeEach(() => {
         incomeRepository = {
             save: jest.fn(),
             findById: jest.fn(),
+            findByUserId: jest.fn(),
+            delete: jest.fn(),
+            update: jest.fn(),
         };
         incomeCreator = new IncomeCreator(incomeRepository);
     });
@@ -18,8 +20,9 @@ describe('IncomeCreator', () => {
         const incomeData: IncomePlainData = {
             id: '1',
             amount: 1000,
-            frequency: 'monthly',
+            frequency: 'Weekly',
             userId: '1',
+            name: 'Salary'
         };
 
         const income = await incomeCreator.run(incomeData);

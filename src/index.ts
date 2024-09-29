@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import userRoutes from './controllers/user/user.routes';
@@ -7,7 +9,6 @@ import expenseRoutes from './controllers/expense/expense.routes';
 import bankAccountRoutes from './controllers/bankAccount/bankAccount.routes';
 import creditProductRoutes from './controllers/credit-product/credit-product.routes';
 
-dotenv.config();
 const app = express();
 
 app.use(cors());

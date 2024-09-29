@@ -6,8 +6,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist/src",
+    "rootDir": "./src"
   },
-  "include": ["src/**/*", "api/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*", "api/**/*", ".env", "fb-sa.json"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

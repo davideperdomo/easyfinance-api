@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import userRoutes from './src/controllers/user/user.routes';
-import incomeRoutes from './src/controllers/income/income.routes';
-import expenseRoutes from './src/controllers/expense/expense.routes';
-import bankAccountRoutes from './src/controllers/bankAccount/bankAccount.routes';
-import creditProductRoutes from './src/controllers/credit-product/credit-product.routes';
+import userRoutes from './controllers/user/user.routes';
+import incomeRoutes from './controllers/income/income.routes';
+import expenseRoutes from './controllers/expense/expense.routes';
+import bankAccountRoutes from './controllers/bankAccount/bankAccount.routes';
+import creditProductRoutes from './controllers/credit-product/credit-product.routes';
 
 dotenv.config();
 const app = express();

@@ -8,6 +8,7 @@ import { IncomeService } from '../../modules/income/domain/income.service';
 import { FirestoreIncomeRepository } from '../../modules/income/infrastructure/firestoreIncome.repository';
 import { UserService } from '../../modules/user/domain/user.service';
 import { FinancialGoalController } from './financial-goal.controller';
+import { FinancialGoalCalculator } from '../../modules/financial-goal/application/financial-goal-calculator';
 
 const router = Router();
 
@@ -17,9 +18,11 @@ const expenseService = new ExpenseService(new FirestoreExpenseRepository());
 const userService = new UserService(incomeService, expenseService);
 const financialGoalService = new FinancialGoalService(userService);
 const financialGoalController = new FinancialGoalController(
-  new FinancialGoalCreator(financialGoalService, financialGoalRepository)
+  new FinancialGoalCreator(financialGoalService, financialGoalRepository),
+  new FinancialGoalCalculator(financialGoalService)
 );
 
 router.post('/api/financial-goals', (req, res) => financialGoalController.createFinancialGoal(req, res));
+router.post('/api/financial-goals/calculate', (req, res) => financialGoalController.calculateFinancialGoal(req, res));
 
 export default router;
